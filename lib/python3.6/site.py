@@ -122,7 +122,7 @@ def removeduppaths():
         # if they only differ in case); turn relative paths into absolute
         # paths.
         dir, dircase = makepath(dir)
-        if not dircase in known_paths:
+        if dircase not in known_paths:
             L.append(dir)
             known_paths.add(dircase)
     sys.path[:] = L
@@ -174,7 +174,7 @@ def addpackage(sitedir, name, known_paths):
                 continue
             line = line.rstrip()
             dir, dircase = makepath(sitedir, line)
-            if not dircase in known_paths and os.path.exists(dir):
+            if dircase not in known_paths and os.path.exists(dir):
                 sys.path.append(dir)
                 known_paths.add(dircase)
     finally:
@@ -192,7 +192,7 @@ def addsitedir(sitedir, known_paths=None):
     else:
         reset = 0
     sitedir, sitedircase = makepath(sitedir)
-    if not sitedircase in known_paths:
+    if sitedircase not in known_paths:
         sys.path.append(sitedir)        # Add path component
     try:
         names = os.listdir(sitedir)
